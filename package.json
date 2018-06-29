@@ -1,0 +1,25 @@
+{
+  "name": "api_testing",
+  "version": "1.0.0",
+  "description": "A proccess selection demo for sportdec from Jose Sanchez Moreno",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "github_api",
+    "twitter_api"
+  ],
+  "author": "Jose Sanchez Moreno",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "commander": "^2.15.1",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
