@@ -3,14 +3,15 @@
 const twitterCredentials = require('./../twitterCredentials.json')
 var twitter = require('twitter');
 
-//Crate twitter object to help us with auth
+//Create twitter object to help with auth
 var twitterClient = new twitter(twitterCredentials);
 
 /**
- * 
- * @param {String} searchItem Item that will be searched in tweets
+ * Return a promise with an array of tweets that included the search item
+ * @param {String} searchItem 
+ * @returns {Promise} A promise with data or error
  */
-function searchTweetByWord(searchItem) {
+  function searchTweetByWord(searchItem) {
     return new Promise(function (resolve, reject) {
         var params = { q: searchItem, tweet_mode: "extended" };
         twitterClient.get(`search/tweets`, params, function (error, tweets, response) {
@@ -19,7 +20,5 @@ function searchTweetByWord(searchItem) {
         });
     })
 }
-//TODO make only one request
-
 
 module.exports = { searchTweetByWord }

@@ -10,22 +10,19 @@ const DEFAULT_LIMIT = 10;
 //COMAND LINE INTERFACE
 program
     .version('0.0.1')
-    .option('-s , --search_item [key]', 'Word to be searched in github. Default "football"')
-    .option('-l , --limit [number]', 'Limit number of repositories')
+    .option('-s , --search_item [word]', 'Word to be searched in github. Default "football"')
+    .option('-l , --limit [number]', 'Limit number of repositories for search in Twitter. Default is 10')
     .parse(process.argv);
 
 var searchWord = program.search_item || DEFALUT_SEARCH;
 var limitRepo = program.limit || DEFAULT_LIMIT;
 
 console.log(`Looking for maximun of ${limitRepo} repositores with ${searchWord}`);
-github.getRepositoriesByName(searchWord, limitRepo)
+github.getRepositoriesByName(searchWord)
     .then(repositories=> {
-        //Ramdon sort
-        repositories.sort(() => Math.random() - 0.5)
-        //Keep just the first 'limitRepo' elements
-        repositories.splice(limitRepo);
+        repositories.sort(() => Math.random() - 0.5)  //Ramdon sort
+        repositories.splice(limitRepo); //Keep just the first 'limitRepo' elements
         repositories.forEach(repo => {
-            console.log(repo.html_url)
             twitter.searchTweetByWord(repo.html_url)
             .then(tweets => {
                 console.log("++++++++++++++++++++++++++++",repo.html_url,"++++++++++++++++++++++++++++")
@@ -38,8 +35,7 @@ github.getRepositoriesByName(searchWord, limitRepo)
                 }
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",'\n')
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log(error.message))
         });
     })
-
-    .catch(error =>{console.log})
+    .catch(error =>{console.log(error.message)})

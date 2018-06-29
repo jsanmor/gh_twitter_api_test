@@ -5,9 +5,9 @@ const axios = require('axios');
 const GITHUB_URL = 'https://api.github.com/search/repositories?q=';
 
 /**
- * This function will search repositories in github that contains a particular word in the name
+ * Search repositories in github that contains a particular word in the name
  * @param {String} searchItemGH String to be searched in github repositories
- * @param {Number} limitItems Maximun number of repositores returned
+ * @returns {Promise} That contains array of repositories info, or an error message
  */
 function getRepositoriesByName(searchItemGH) {
     return new Promise(function (resolve, reject){
